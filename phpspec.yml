@@ -1,0 +1,5 @@
+suites:
+  artax_dumper_suite:
+    namespace: ArtaxDumper
+    psr4_prefix: ArtaxDumper
+    src_path: src/

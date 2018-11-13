@@ -1,0 +1,31 @@
+{
+    "name": "sevavietl/artax-dumper",
+    "type": "library",
+    "require": {
+        "php": ">=7.1",
+        "amphp/artax": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.4",
+        "phpstan/phpstan": "^0.10.5",
+        "php-coveralls/php-coveralls": "^2.1",
+        "phpspec/phpspec": "^5.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "ArtaxDumper\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ArtaxDumper\\Test\\": "test/"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "sevavietl",
+            "email": "sevavietl@gmail.com"
+        }
+    ]
+}
