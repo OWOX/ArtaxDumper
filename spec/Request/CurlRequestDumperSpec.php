@@ -6,7 +6,6 @@ use Amp\Artax\Request;
 use ArtaxDumper\Request\CurlRequestDumper;
 use ArtaxDumper\Request\RequestDumper;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class CurlRequestDumperSpec extends ObjectBehavior
 {
