@@ -7,22 +7,46 @@ use function Amp\Promise\wait;
 
 final class CurlRequestDumper implements RequestDumper
 {
-    public function dump(Request $request): string
+    /** @var Formatter */
+    private $formatter;
+
+    public function __construct(Formatter $formatter = null)
     {
-        $command = 'curl ';
+        $this->formatter = $formatter ?? new OneLineFormatter();
+    }
+
+    public function dump(Request $request, bool $hideResponseHeaders = true): string
+    {
+        $commandParts = [];
+        $commandParts['base'] = 'curl';
+        $commandParts['hideResponseHeaders'] = $hideResponseHeaders ? null : '-i';
+        $commandParts['method'] = null;
+        $commandParts['headers'] = [];
 
         foreach ($request->getHeaders() as $key => $values) {
             foreach ($values as $value) {
-                $command .= "-H \"{$key}: $value\" ";
+                $commandParts['headers'][] = "-H \"{$key}: $value\"";
             }
         }
 
         $body = wait($request->getBody()->createBodyStream()->read());
 
         if (null !== $body && '' !== $body) {
-            $command .= '-d "' . addslashes($body) . '" ';
+            $commandParts['body'] = '-d "' . addslashes($body) . '"';
+
+            if ('GET' === $request->getMethod()) {
+                $commandParts['method'] = '-G';
+            }
         }
 
-        return $command . '"' . $request->getUri() . '"';
+        if ('PUT' === $request->getMethod()) {
+            $commandParts['method'] = '-X PUT';
+        }
+
+        $commandParts['uri'] = '"' . $request->getUri() . '"';
+
+        return $this->formatter->format($commandParts);
     }
+
+
 }

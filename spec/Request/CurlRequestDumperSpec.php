@@ -27,12 +27,35 @@ class CurlRequestDumperSpec extends ObjectBehavior
         $this->dump($request)->shouldReturn("curl \"{$uri}\"");
     }
 
+    function it_dumps_get_request_with_data()
+    {
+        $request = (new Request($uri = 'https://httpbin.org/get'))
+            ->withBody($body = 'foo=bar');
+
+        $this->dump($request)->shouldReturn("curl -G -d \"{$body}\" \"{$uri}\"");
+    }
+
+    function it_sets_flag_when_response_headers_should_not_be_hidden()
+    {
+        $request = new Request($uri = 'https://httpbin.org/get');
+
+        $this->dump($request, false)->shouldReturn("curl -i \"{$uri}\"");
+    }
+
     function it_dumps_post_request()
     {
-        $request = (new Request($uri = 'https://httpbin.org/get', 'POST'))
+        $request = (new Request($uri = 'https://httpbin.org/post', 'POST'))
             ->withBody($body = 'foo=bar');
 
         $this->dump($request)->shouldReturn("curl -d \"{$body}\" \"{$uri}\"");
+    }
+
+    function it_dumps_put_request()
+    {
+        $request = (new Request($uri = 'https://httpbin.org/put', 'PUT'))
+            ->withBody($body = 'foo=bar');
+
+        $this->dump($request)->shouldReturn("curl -X PUT -d \"{$body}\" \"{$uri}\"");
     }
 
     function it_dumps_request_with_headers()
