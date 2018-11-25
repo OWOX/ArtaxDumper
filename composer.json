@@ -13,12 +13,12 @@
     },
     "autoload": {
         "psr-4": {
-            "OWOX\\ArtaxDumper\\": "src/"
+            "ArtaxDumper\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "OWOX\\ArtaxDumper\\Test\\": "test/"
+            "ArtaxDumper\\Test\\": "test/"
         }
     },
     "license": "MIT",
