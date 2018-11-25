@@ -1,5 +1,5 @@
 {
-    "name": "sevavietl/artax-dumper",
+    "name": "owox/artax-dumper",
     "type": "library",
     "require": {
         "php": ">=7.1",
@@ -13,12 +13,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ArtaxDumper\\": "src/"
+            "OWOX\\ArtaxDumper\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ArtaxDumper\\Test\\": "test/"
+            "OWOX\\ArtaxDumper\\Test\\": "test/"
         }
     },
     "license": "MIT",
