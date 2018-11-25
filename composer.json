@@ -9,7 +9,8 @@
         "phpunit/phpunit": "^7.4",
         "phpstan/phpstan": "^0.10.5",
         "php-coveralls/php-coveralls": "^2.1",
-        "phpspec/phpspec": "^5.1"
+        "phpspec/phpspec": "^5.1",
+        "owox/phpspec-amp": "^0.0.2"
     },
     "autoload": {
         "psr-4": {

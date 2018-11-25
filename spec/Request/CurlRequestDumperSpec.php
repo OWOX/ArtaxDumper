@@ -23,7 +23,7 @@ class CurlRequestDumperSpec extends ObjectBehavior
     {
         $request = new Request($uri = 'https://httpbin.org/get');
 
-        $this->dump($request)->shouldReturn("curl \"{$uri}\"");
+        $this->dump($request)->shouldResolveTo("curl \"{$uri}\"");
     }
 
     function it_dumps_get_request_with_data()
@@ -31,14 +31,14 @@ class CurlRequestDumperSpec extends ObjectBehavior
         $request = (new Request($uri = 'https://httpbin.org/get'))
             ->withBody($body = 'foo=bar');
 
-        $this->dump($request)->shouldReturn("curl -G -d \"{$body}\" \"{$uri}\"");
+        $this->dump($request)->shouldResolveTo("curl -G -d \"{$body}\" \"{$uri}\"");
     }
 
     function it_sets_flag_when_response_headers_should_not_be_hidden()
     {
         $request = new Request($uri = 'https://httpbin.org/get');
 
-        $this->dump($request, false)->shouldReturn("curl -i \"{$uri}\"");
+        $this->dump($request, false)->shouldResolveTo("curl -i \"{$uri}\"");
     }
 
     function it_dumps_post_request()
@@ -46,7 +46,7 @@ class CurlRequestDumperSpec extends ObjectBehavior
         $request = (new Request($uri = 'https://httpbin.org/post', 'POST'))
             ->withBody($body = 'foo=bar');
 
-        $this->dump($request)->shouldReturn("curl -d \"{$body}\" \"{$uri}\"");
+        $this->dump($request)->shouldResolveTo("curl -d \"{$body}\" \"{$uri}\"");
     }
 
     function it_dumps_put_request()
@@ -54,7 +54,7 @@ class CurlRequestDumperSpec extends ObjectBehavior
         $request = (new Request($uri = 'https://httpbin.org/put', 'PUT'))
             ->withBody($body = 'foo=bar');
 
-        $this->dump($request)->shouldReturn("curl -X PUT -d \"{$body}\" \"{$uri}\"");
+        $this->dump($request)->shouldResolveTo("curl -X PUT -d \"{$body}\" \"{$uri}\"");
     }
 
     function it_dumps_request_with_headers()
@@ -64,6 +64,6 @@ class CurlRequestDumperSpec extends ObjectBehavior
                 $key = 'foo' => $value = 'bar',
             ]);
 
-        $this->dump($request)->shouldReturn("curl -H \"{$key}: $value\" \"{$uri}\"");
+        $this->dump($request)->shouldResolveTo("curl -H \"{$key}: $value\" \"{$uri}\"");
     }
 }

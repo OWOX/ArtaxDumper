@@ -1,5 +1,10 @@
+extensions:
+  OWOX\PhpSpec\Amp\Extension: ~
+
 suites:
   artax_dumper_suite:
     namespace: ArtaxDumper
     psr4_prefix: ArtaxDumper
     src_path: src/
+
+formatter.name: pretty

@@ -14,16 +14,18 @@ composer require owox/artax-dumper
 Only [curl](https://curl.haxx.se/) request dumper hugely inspired by [cuzzle](https://github.com/namshi/cuzzle) available for now. It can be used for copy/paste requests logging:
 
 ```php
-$curlRequestDumper = new \ArtaxDumper\Request\CurlRequestDumper();
-
-// GET Request
-$request = new \Amp\Artax\Request('https://httpbin.org/get');
-
-$curl = $curlRequestDumper->dump($request); // => curl "https://httpbin.org/get"
-
-// POST Request
-$request = (new \Amp\Artax\Request($uri = 'https://httpbin.org/post', 'POST'))
-    ->withBody($body = 'foo=bar');
-
-$curl = $curlRequestDumper->dump($request); // => curl -d "foo=bar" "https://httpbin.org/post"
+\Amp\Loop::run(static function () {
+    $curlRequestDumper = new \ArtaxDumper\Request\CurlRequestDumper();
+    
+    // GET Request
+    $request = new \Amp\Artax\Request('https://httpbin.org/get');
+    
+    $curl = yield $curlRequestDumper->dump($request); // => curl "https://httpbin.org/get"
+    
+    // POST Request
+    $request = (new \Amp\Artax\Request($uri = 'https://httpbin.org/post', 'POST'))
+        ->withBody($body = 'foo=bar');
+    
+    $curl = yield $curlRequestDumper->dump($request); // => curl -d "foo=bar" "https://httpbin.org/post"
+});
 ```

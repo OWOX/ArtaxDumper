@@ -3,6 +3,8 @@
 namespace ArtaxDumper\Test\Integration\Request;
 
 use Amp\Artax\Request;
+use Amp\Promise;
+use function Amp\Promise\wait;
 use ArtaxDumper\Request\CurlRequestDumper;
 use PHPUnit\Framework\TestCase;
 
@@ -57,9 +59,9 @@ final class CurlRequestDumperTest extends TestCase
         $this->assertValidCurlRequest($this->curlRequestDumper->dump($request, false));
     }
 
-    private function assertValidCurlRequest(string $curl): void
+    private function assertValidCurlRequest(Promise $forDumper): void
     {
-        $response = shell_exec($curl) ?? '';
+        $response = shell_exec($curl = wait($forDumper)) ?? '';
 
         $this->assertRegExp('/200 OK/', $response);
     }
